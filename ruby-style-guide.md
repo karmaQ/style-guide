@@ -6,22 +6,24 @@
 * 不要遗留行尾空格。
 * 在逗号 `,` 、冒号 `:` 、分号 `;` 之后 ，`{`前后以及`}`之前添加空格。
 
-    ```
+  ``` ruby
   sum = 1 + 2
   a, b = 1, 2
   1 > 2 ? true : false; puts "Hi"
   [1, 2, 3].each { |e| puts e }
-    ```
+  ```
+  
  * 在`（`，`[`之后以及`]`和`）`之前不需要空格。
   
-  ```
+  ``` ruby
   some（arg）.other
   [1, 2, 3].length
   ```
+
 * `!`之后不要空格 。
 * `when`和`case`同级缩进。
   
-  ```
+  ``` ruby
   case
   when song.name == "Misty"
     puts "Not again!"
@@ -34,8 +36,8 @@
   end
 
   kind = case year
-       when 1850..1889 then "Blues"
-       when 1890..1909 then "Ragtime"
+         when 1850..1889 then "Blues"
+         when 1890..1909 then "Ragtime"
          when 1910..1929 then "New Orleans Jazz"
          when 1930..1939 then "Swing"
          when 1940..1950 then "Bebop"
@@ -45,22 +47,22 @@
 
 * 在 `def` 中使用空行来把代码分隔成合乎逻辑的段落。
   
-  ```
+  ``` ruby
   def some_method
-      data = initialize(options)
-      data.manipulate!
-      data.result
+    data = initialize(options)
+    data.manipulate!
+    data.result
   end
 
   def some_method
-      result
+    result
   end
   ```
     
 ## 文档
 使用[Tomdoc]（http://tomdoc.org/）来书写文档。如此的美妙:
 
-```
+``` ruby
 # Public: Duplicate some text an arbitrary number of times.
 #
 # text  - The String to be duplicated.
@@ -80,19 +82,19 @@ end
 ## 语法
 * 使用 `def` 时，当方法接收参数时使用括号，不接受参数时，省略括号。
 
-  ```
+  ``` ruby
   def some_method
-    # 此处省略方法体
+    # do something...
   end
 
   def some_method_with_arguments（arg1, arg2）
-    # 此处省略方法体
+    # do something...
   end
   ```
     
 * 不要使用 `for` ，除非你时分清楚为什么使用，大多数情况下应该使用迭代器。`for` 是由 `each` 实现的（所以你绕弯了），不同于 `for` 的是 - 它不会引入一个新的作用域（ `each` 会）以至于定义于其内部区块的变量在外部也是可见的。
 
-  ```
+  ``` ruby
   arr = [1, 2, 3]
   # bad
   for elem in arr do
@@ -105,7 +107,7 @@ end
   
 * 避免使用三元操作符，除非所有表达式都是极其简短的。另外，应该使用三元操作符来代替单行的 `if/then/else/end` 结构。
 
-  ```
+  ``` ruby
   # bad
   result = if some_condition then something else something_else end
   
@@ -115,7 +117,7 @@ end
   
 * 三元操作符的每个分支只写一个表达式。即不要嵌套三元操作符。对于嵌套的情况应使用 `if/else` 结构。
   
-  ```
+  ``` ruby
   # bad
   some_condition ? （nested_condition ? nested_something : nested_something_else） : something_else
   
@@ -131,7 +133,7 @@ end
 * 用 `if/unless` 来避免多行的`?:` （三元操作符）。
 * 对于单行的代码主体尽量使用修饰性的 `if/unless`。
 
-  ```
+  ``` ruby
   # bad
   if some_condition
     do_something
@@ -143,10 +145,10 @@ end
   
 * 不要同时使用 `unless` 和 `else`。把肯定的条件放到前面重写吧。
   
-  ```
+  ``` ruby
   # bad
   unless success?
-      puts "failure"
+    puts "failure"
   else
     puts "success"
   end
@@ -161,21 +163,21 @@ end
   
 * 不要在 `if/unless/while` 的条件式两边加括号。
 
-  ```
+  ``` ruby
   # bad
   if （x > 10）
-      # body omitted
+    # body omitted
   end
   
   # good
   if x > 10
-      # body omitted
+    # body omitted
   end 
   ```
   
 * 单行的块调用中请用 `{...}` 代替 `do…end`  。而多行的块调用则避免使用 `{…}`（而且多行的链式调用也往往很丑）。 对于 `流程控制` 和 `方法定义` 则往往使用 `do…end` （例如: 在 Rakefile 和某些 DSL 中）。 链式调用则要避免使用 `do…end`。
 
-  ```
+  ``` ruby
   names = ["Bozhidar", "Steve", "Sarah"]
 
   # good
@@ -229,7 +231,7 @@ end
 
 * 使用被括号包裹的 `=` （赋值语句）的返回值也是可以的。
 
-  ```
+  ``` ruby
   # bad
   if （v = array.grep（/foo/）） ...
 
@@ -242,14 +244,14 @@ end
 
 * 自如的使用 `||=` 来初始化变量吧。
 
-  ```
+  ``` ruby
   # set name to Bozhidar, only if it's nil or false
   name ||= "Bozhidar"
   ```
 
 * 不要使用 `||=` 来初始化布尔变量。（想想看如果你变量当前的值为 `false` 时会发生什么。）
 
-  ```
+  ``` ruby
   # bad - would set enabled to true even if it was false
   enabled ||= true
 
@@ -260,7 +262,7 @@ end
 * 避免使用 Perl 风格的特殊变量（例如 `$0-9` 、 `$` 等等）。它们看起来非常神秘，除非用于单行脚本，否则不鼓励使用。使用完整形式的名称会更好一些,像是 `$PROGRAM_NAME` 。
 * 永远不要在方法名和左括号之间放一个空格。
 
-  ```
+  ``` ruby
   # bad
   f （3 + 2） + 1
 
@@ -271,7 +273,7 @@ end
 * 如果方法的第一个参数以左括号起始，那么这个方法的调用需要使用括号。举例来说，要这样写 f（（3+2） + 1）。
 * 使用 `_` 来命名用不到的块参数。
 
-  ```
+  ``` ruby
   # bad
   result = hash.map { |k, v| v + 1 }
 
@@ -289,7 +291,7 @@ end
 ## 类
 * 由于类变量（ `@@` ）会在继承时产生不自然的行为所以避免使用它们。
 
-  ```
+  ``` ruby
   class Parent
     @@class_var = "parent"
 
@@ -308,7 +310,7 @@ end
   如同你所见，在类型层级中的所有类其实都共享同一个类变量。类实例变量通常比类变量更优先被使用。
 * 使用 `def self.method` 来定义单例（ singleton ）方法。这使得方法更易重构。
 
-  ```
+  ``` ruby
   class TestClass
     # bad
     def TestClass.some_method
@@ -324,7 +326,7 @@ end
 
 * 避免使用 `class << self` 除非这是必须的， 比如单个读写器以及属性别名。
 
-  ```
+  ``` ruby
   class TestClass
     # bad
     class << self
@@ -361,39 +363,39 @@ end
 
 * 当你需要一个私服传数组的时候首选 `%w` 字符数组语法。
 
-  ```
-    # bad
+  ``` ruby
+  # bad
   STATES = ["draft", "open", "closed"]
 
-    # good
+  # good
   STATES = %w(draft open closed)
   ```
 
 * 处理多个无重复元素时使用 `Set` 代替 `Array` 。 `Set` 实现了无序、无重复值得集合。 `Set`的方法同数组类一样直观，和可以想哈希哪样快速查找元素。
 * 尽量使用符号代替字符串作为哈希的键。
 
-  ```
-    # bad
+  ``` ruby
+  # bad
   hash = { "one" => 1, "two" => 2, "three" => 3 }
 
-    # good
+  # good
   hash = { :one => 1, :two => 2, :three => 3 }
   ```
 
 ## 字符串
 * 使用字符串插入（interpolation）替代字符串拼接（concatenation）。
 
-  ```
-    # bad
+  ``` ruby
+  # bad
   email_with_name = user.name + " <" + user.email + ">"
 
-    # good
+  # good
   email_with_name = "#{user.name} <#{user.email}>"
   ```
 
 * 尽量使用双括号字符串。这样无需改变定界符就可以照常使用插入值和转义字符，而且在字符串字面量中 `'` 比 `"` 更常见。
 
-  ```
+  ``` ruby
   # bad
   name = 'Bozhidar'
 
@@ -403,7 +405,7 @@ end
 
 * 当你需要构造一个庞大的文本块时，避免使用 `String#+`。使用 `String#<<` 来替代。 `<<` 即时的修改被连结的字符串实例并且往往比创建了一堆新的字符串对象的 `String#+` 更快。
 
-  ```
+  ``` ruby
   # good and also fast
   html = ""
   html << "<h1>Page title</h1>"
@@ -416,7 +418,7 @@ end
 ## 正则表达式
 * 避免使用 $1-9 ， 这将使其包含的内容变得难以追踪。具名分组是绝佳的替代方案。
 
-  ```
+  ``` ruby
   # bad
   /(regexp)/ =~ string
   ...
@@ -431,7 +433,7 @@ end
 
 * 小心的使用 `^` 与 `$`，他们匹配的是一行的开始与结尾， 而不是字符串的开始与结束。如果你想匹配整个字符串，使用 `\A` 和 `\Z`。
 
-  ```
+  ``` ruby
   string = "some injection\nusername"
   string[/^username$/]   # matches
   string[/\Ausername\Z/] # don't match
@@ -439,7 +441,7 @@ end
 
 * 使用 `x` 来修饰复杂的正则。这将使他们更具可读性并且使你可以添加一些有用的注释。只是需要注意空白字符将被忽略。
 
-  ```
+  ``` ruby
   regexp = %r{
     start         # some text
     \s            # white space char
@@ -452,13 +454,13 @@ end
 ## 百分号字面量
 * 自如的使用 `%w`。
 
-  ```
+  ``` ruby
   STATES = %w(draft open closed)
   ```
 
 * 对于需要插入与嵌入双引号的单行字符串使用 %() 。而多行字符串，最好使用 heredocs 。
 
-  ```
+  ``` ruby
   # bad (no interpolation needed)
   %(<div class="text">Some text</div>)
   # should be "<div class="text">Some text</div>"
@@ -477,7 +479,7 @@ end
 
 * `%r`专门用于要匹配多个 ‘/’ 字符的正则表达式时使用 。
 
-  ```
+  ``` ruby
   # bad
   %r(\s+)
 
@@ -492,7 +494,7 @@ end
 ## 哈希
 使用哈希火箭的语法作为哈希符号来替代 1.9 版本中引进的 JSON 风格。
 
-  ```
+  ``` ruby
   # bad
   user = {
     login: "Defunkt",
